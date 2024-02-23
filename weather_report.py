@@ -2,7 +2,21 @@
 import os
 import requests
 import json
+import re
 from bs4 import BeautifulSoup
+from datetime import date, datetime, timedelta
+from zhdate import ZhDate as lunar_date
+
+nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
+today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
+
+# 储存名字和生日
+persons = []
+birthdays = []
+
+start_date = os.environ.get('START_DATE')
+city = os.environ.get('CITY')
+birthday = os.environ.get('BIRTHDAY')
 
 # 从测试号信息获取
 appID = os.environ.get("APP_ID")
@@ -11,6 +25,48 @@ appSecret = os.environ.get("APP_SECRET")
 openId = os.environ.get("OPEN_ID")
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
+
+# 处理名字和生日数组
+def split_birthday():
+  if birthday is None:
+    return None
+  arr = birthday.split('\n')
+  for m in arr:
+    objArr = m.split(' ')
+    persons.append(objArr[0])
+    birthdays.append(objArr[1])
+
+split_birthday()
+
+# 纪念日正数
+def get_memorial_days_count():
+  if start_date is None:
+    print('没有设置 START_DATE')
+    return 0
+  delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+  return delta.days
+
+
+# 各种倒计时
+def get_counter_left(name,aim_date):
+  if aim_date is None:
+    return 0
+
+  # 为了经常填错日期的同学们
+  if re.match(r'^\d{1,2}\-\d{1,2}$', aim_date):
+    next = datetime.strptime(str(date.today().year) + "-" + aim_date, "%Y-%m-%d")
+  elif re.match(r'^\d{2,4}\-\d{1,2}\-\d{1,2}$', aim_date):
+    next = datetime.strptime(aim_date, "%Y-%m-%d")
+    next = next.replace(nowtime.year)
+  else:
+    print('日期格式不符合要求')
+
+  if(next.strftime("%Y-%m-%d")==nowtime.strftime("%Y-%m-%d")):
+    return "亲爱的%s生日快乐 Happy birthday!" % (name)
+  if next < nowtime:
+    next = next.replace(year=next.year + 1)
+  return "距离%s的生日还有：%d天" % (name, (next - today).days) 
+
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
@@ -77,8 +133,48 @@ def get_daily_love():
     daily_love = sentence
     return daily_love
 
+weather = get_weather(city)
+print(f"天气信息： {weather}")
 
-def send_weather(access_token, weather):
+data = {
+  "date": {
+      "value": today.strftime('%Y年%m月%d日')
+  },
+  "city": {
+    "value": city,
+  },
+  "region": {
+      "value": weather[0]
+  },
+  "weather": {
+      "value": weather[2]
+  },
+  "temp": {
+      "value": weather[1]
+  },
+  "wind_dir": {
+      "value": weather[3]
+  },
+  "today_note": {
+    "value": get_daily_love()
+  },
+}
+
+for index, aim_date in enumerate(birthdays):
+  key_name = "birthday_left"
+  if aim_date[0] == "r":
+    dArr = aim_date[1:].split("-")
+    dArr.insert(0,date.today().year)
+    aim_date = lunar_date(dArr[0],int(dArr[1]),int(dArr[2])).to_datetime()
+    aim_date = aim_date.strftime("%m-%d")
+  if index != 0:
+    key_name = key_name + "_%d" % index
+  data[key_name] = {
+    "value": get_counter_left(persons[index], aim_date),
+  }
+
+
+def send_weather(access_token, value):
     # touser 就是 openID
     # template_id 就是模板ID
     # url 就是点击模板跳转的url
@@ -86,48 +182,28 @@ def send_weather(access_token, weather):
 
     import datetime
     today = datetime.date.today()
-    today_str = today.strftime("%Y年%m月%d日")
 
     body = {
         "touser": openId.strip(),
         "template_id": weather_template_id.strip(),
         "url": "https://weixin.qq.com",
-        "data": {
-            "date": {
-                "value": today_str
-            },
-            "region": {
-                "value": weather[0]
-            },
-            "weather": {
-                "value": weather[2]
-            },
-            "temp": {
-                "value": weather[1]
-            },
-            "wind_dir": {
-                "value": weather[3]
-            },
-            "today_note": {
-                "value": get_daily_love()
-            }
-        }
+        "data": value
     }
     url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}'.format(access_token)
     print(requests.post(url, json.dumps(body)).text)
 
 
 
-def weather_report(this_city):
+def weather_report():
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
-    weather = get_weather(this_city)
-    print(f"天气信息： {weather}")
+    # weather = get_weather(this_city)
+    # print(f"天气信息： {weather}")
     # 3. 发送消息
-    send_weather(access_token, weather)
+    send_weather(access_token, data)
 
 
 
 if __name__ == '__main__':
-    weather_report("东莞")
+    weather_report()
