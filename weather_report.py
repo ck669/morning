@@ -155,6 +155,9 @@ data = {
   "wind_dir": {
       "value": weather[3]
   },
+  "love_days": {
+    "value": get_memorial_days_count(),
+  },
   "today_note": {
     "value": get_daily_love()
   },
