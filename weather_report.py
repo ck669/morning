@@ -193,10 +193,10 @@ def weather_report():
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
-    
-    print(f"天气信息： {weather}")
+    # weather = get_weather(city)
+    # print(f"天气信息： {weather}")
     # 3. 发送消息
-    send_weather(access_token, weather)
+    send_weather(access_token, data)
 
 
 
