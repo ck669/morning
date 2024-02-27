@@ -141,7 +141,7 @@ data = {
       "value": today.strftime('%Y年%m月%d日')
   },
   "city": {
-    "value": city,
+      "value": city,
   },
   "region": {
       "value": weather[0]
@@ -163,18 +163,18 @@ data = {
   },
 }
 
-for index, aim_date in enumerate(birthdays):
-  key_name = "birthday_left"
-  if aim_date[0] == "r":
-    dArr = aim_date[1:].split("-")
-    dArr.insert(0,date.today().year)
-    aim_date = lunar_date(dArr[0],int(dArr[1]),int(dArr[2])).to_datetime()
-    aim_date = aim_date.strftime("%m-%d")
-  if index != 0:
-    key_name = key_name + "_%d" % index
-  data[key_name] = {
-    "value": get_counter_left(persons[index], aim_date),
-  }
+# for index, aim_date in enumerate(birthdays):
+#   key_name = "birthday_left"
+#   if aim_date[0] == "r":
+#     dArr = aim_date[1:].split("-")
+#     dArr.insert(0,date.today().year)
+#     aim_date = lunar_date(dArr[0],int(dArr[1]),int(dArr[2])).to_datetime()
+#     aim_date = aim_date.strftime("%m-%d")
+#   if index != 0:
+#     key_name = key_name + "_%d" % index
+#   data[key_name] = {
+#     "value": get_counter_left(persons[index], aim_date),
+#   }
 
 
 def send_weather(access_token, value):
@@ -183,8 +183,8 @@ def send_weather(access_token, value):
     # url 就是点击模板跳转的url
     # data就按这种格式写，time和text就是之前{{time.DATA}}中的那个time，value就是你要替换DATA的值
 
-    import datetime
-    today = datetime.date.today()
+    # import datetime
+    # today = datetime.date.today()
 
     body = {
         "touser": openId.strip(),
