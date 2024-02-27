@@ -6,7 +6,7 @@ import re
 start_date = "2024-02-26"
 
 persons = ["小王","小李"]
-birthdays = ["r01-21","r01-19"]
+birthdays = ["r01-21","r01-18"]
 
 today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
