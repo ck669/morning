@@ -5,7 +5,7 @@ import json
 import re
 from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
-from zhdate import ZhDate as lunar_date
+# from zhdate import ZhDate as lunar_date
 
 nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
 today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
