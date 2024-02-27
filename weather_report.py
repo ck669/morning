@@ -126,10 +126,11 @@ def weather_report(this_city):
     # 2. 获取天气
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
+    print(f"城市 {city}")
     # 3. 发送消息
     send_weather(access_token, weather)
 
 
 
 if __name__ == '__main__':
-    weather_report(city)
+    weather_report("东莞")
