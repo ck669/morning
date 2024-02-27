@@ -141,8 +141,6 @@ def weather_report():
     # 2. 获取天气
     weather = get_weather(city)
     print(f"天气信息： {weather}")
-    print("今天："+ today)
-    print("纪念日："+ start_date)
     # 3. 发送消息
     send_weather(access_token, weather)
 
