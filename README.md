@@ -46,11 +46,14 @@ https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 模板内容：
 ```copy
 今天：{{date.DATA}} 
-地区：{{region.DATA}} 
+地区：{{city.DATA}} 
 天气：{{weather.DATA}} 
 气温：{{temp.DATA}} 
 风向：{{wind_dir.DATA}} 
-对你说的话：{{today_note.DATA}}
+纪念日: {{ secrets.START_DATE }}
+对你说的话：{{love_days.DATA}}
+人员生日信息: ${{ birthday_left_1.BIRTHDAY }}
+人员2生日信息: ${{ birthday_left_2.BIRTHDAY }}
 ```
 
 ### 项目配置 

@@ -119,7 +119,7 @@ data = {
     "date": {
         "value": today.strftime("%Y年%m月%d日")
     },
-    "region": {
+    "city": {
         "value": weather[0]
     },
     "weather": {
