@@ -133,35 +133,10 @@ def get_daily_love():
     daily_love = sentence
     return daily_love
 
-weather = get_weather(city)
-print(f"天气信息： {weather}")
+# weather = get_weather(city)
+# print(f"天气信息： {weather}")
 
-data = {
-  "date": {
-      "value": today.strftime('%Y年%m月%d日')
-  },
-  "city": {
-      "value": city,
-  },
-  "region": {
-      "value": weather[0]
-  },
-  "weather": {
-      "value": weather[2]
-  },
-  "temp": {
-      "value": weather[1]
-  },
-  "wind_dir": {
-      "value": weather[3]
-  },
-  "love_days": {
-    "value": get_memorial_days_count(),
-  },
-  "today_note": {
-    "value": get_daily_love()
-  },
-}
+# data =
 
 # for index, aim_date in enumerate(birthdays):
 #   key_name = "birthday_left"
@@ -177,7 +152,7 @@ data = {
 #   }
 
 
-def send_weather(access_token, value):
+def send_weather(access_token, weather):
     # touser 就是 openID
     # template_id 就是模板ID
     # url 就是点击模板跳转的url
@@ -190,7 +165,32 @@ def send_weather(access_token, value):
         "touser": openId.strip(),
         "template_id": weather_template_id.strip(),
         "url": "https://weixin.qq.com",
-        "data": value
+        "data":  {
+            "date": {
+                "value": today.strftime('%Y年%m月%d日')
+            },
+            "city": {
+                "value": city,
+            },
+            "region": {
+                "value": weather[0]
+            },
+            "weather": {
+                "value": weather[2]
+            },
+            "temp": {
+                "value": weather[1]
+            },
+            "wind_dir": {
+                "value": weather[3]
+            },
+            "love_days": {
+              "value": get_memorial_days_count(),
+            },
+            "today_note": {
+              "value": get_daily_love()
+            },
+          }
     }
     url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}'.format(access_token)
     print(requests.post(url, json.dumps(body)).text)
@@ -201,10 +201,10 @@ def weather_report():
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
-    # weather = get_weather(this_city)
-    # print(f"天气信息： {weather}")
+    weather = get_weather(city)
+    print(f"天气信息： {weather}")
     # 3. 发送消息
-    send_weather(access_token, data)
+    send_weather(access_token, weather)
 
 
 
