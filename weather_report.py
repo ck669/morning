@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
 # from zhdate import ZhDate as lunar_date
 
-nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
-today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
-print('nowtime',nowtime,today)
+# nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
+# today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
+# print('nowtime',nowtime,today)
 
 
 # 储存名字和生日
@@ -160,8 +160,8 @@ def send_weather(access_token, weather):
     # url 就是点击模板跳转的url
     # data就按这种格式写，time和text就是之前{{time.DATA}}中的那个time，value就是你要替换DATA的值
 
-    # import datetime
-    # today = datetime.date.today()
+    import datetime
+    today = datetime.date.today()
 
     body = {
         "touser": openId.strip(),
