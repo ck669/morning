@@ -3,6 +3,9 @@ import os
 import requests
 import json
 from bs4 import BeautifulSoup
+import datetime
+
+today = datetime.date.today()
 
 # 从测试号信息获取
 appID = os.environ.get("APP_ID")
@@ -71,6 +74,14 @@ def get_access_token():
     access_token = response.get('access_token')
     return access_token
 
+# 纪念日正数
+def get_memorial_days_count():
+    if start_date is None:
+      print('没有设置 START_DATE')
+      return 0
+    delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+    return delta.days
+
 
 def get_daily_love():
     # 每日一句情话
@@ -88,17 +99,13 @@ def send_weather(access_token, weather):
     # url 就是点击模板跳转的url
     # data就按这种格式写，time和text就是之前{{time.DATA}}中的那个time，value就是你要替换DATA的值
 
-    import datetime
-    today = datetime.date.today()
-    today_str = today.strftime("%Y年%m月%d日")
-
     body = {
         "touser": openId.strip(),
         "template_id": weather_template_id.strip(),
         "url": "https://weixin.qq.com",
         "data": {
             "date": {
-                "value": today_str
+                "value": today.strftime("%Y年%m月%d日")
             },
             "region": {
                 "value": weather[0]
@@ -111,6 +118,9 @@ def send_weather(access_token, weather):
             },
             "wind_dir": {
                 "value": weather[3]
+            },
+            "love_days": {
+              "value": get_memorial_days_count(),
             },
             "today_note": {
                 "value": get_daily_love()
@@ -128,7 +138,8 @@ def weather_report(this_city):
     # 2. 获取天气
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
-    print(f"纪念日： {start_date}")
+    print("今天："+ today)
+    print("纪念日："+ start_date)
     # 3. 发送消息
     send_weather(access_token, weather)
 
