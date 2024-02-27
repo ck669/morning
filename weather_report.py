@@ -3,9 +3,9 @@ import os
 import requests
 import json
 from bs4 import BeautifulSoup
-import datetime
+from datetime import date, datetime, timedelta
 
-today = datetime.date.today()
+today = datetime.now()
 
 # 从测试号信息获取
 appID = os.environ.get("APP_ID")
@@ -20,6 +20,9 @@ weather_template_id = os.environ.get("TEMPLATE_ID")
 start_date = os.environ.get('START_DATE')
 
 def get_weather(my_city):
+    if city is None:
+      print('请设置城市')
+      return None
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
             "http://www.weather.com.cn/textFC/db.shtml",
             "http://www.weather.com.cn/textFC/hd.shtml",
@@ -132,11 +135,11 @@ def send_weather(access_token, weather):
 
 
 
-def weather_report(this_city):
+def weather_report():
     # 1.获取access_token
     access_token = get_access_token()
     # 2. 获取天气
-    weather = get_weather(this_city)
+    weather = get_weather(city)
     print(f"天气信息： {weather}")
     print("今天："+ today)
     print("纪念日："+ start_date)
@@ -146,4 +149,4 @@ def weather_report(this_city):
 
 
 if __name__ == '__main__':
-    weather_report(city)
+    weather_report()
