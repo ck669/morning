@@ -13,6 +13,8 @@ openId = os.environ.get("OPEN_ID")
 city = os.environ.get('CITY')
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
+# 纪念日
+start_date = os.environ.get('START_DATE')
 
 def get_weather(my_city):
     urls = ["http://www.weather.com.cn/textFC/hb.shtml",
@@ -126,11 +128,11 @@ def weather_report(this_city):
     # 2. 获取天气
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
-    print(f"天气信息： {city}")
+    print(f"纪念日： {start_date}")
     # 3. 发送消息
     send_weather(access_token, weather)
 
 
 
 if __name__ == '__main__':
-    weather_report("东莞")
+    weather_report(city)
