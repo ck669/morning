@@ -2,9 +2,9 @@
 import os
 import requests
 import json
-import re
+# import re
 from bs4 import BeautifulSoup
-from datetime import date, datetime, timedelta
+# from datetime import date, datetime, timedelta
 # from zhdate import ZhDate as lunar_date
 
 # nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
@@ -41,12 +41,12 @@ def split_birthday():
 split_birthday()
 
 # 纪念日正数
-def get_memorial_days_count():
-  if start_date is None:
-    print('没有设置 START_DATE')
-    return 0
-  delta = today - datetime.strptime(start_date, "%Y-%m-%d")
-  return delta.days
+# def get_memorial_days_count():
+#   if start_date is None:
+#     print('没有设置 START_DATE')
+#     return 0
+#   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+#   return delta.days
 
 
 # 各种倒计时
@@ -54,20 +54,20 @@ def get_counter_left(name,aim_date):
   if aim_date is None:
     return 0
 
-  # 为了经常填错日期的同学们
-  if re.match(r'^\d{1,2}\-\d{1,2}$', aim_date):
-    next = datetime.strptime(str(date.today().year) + "-" + aim_date, "%Y-%m-%d")
-  elif re.match(r'^\d{2,4}\-\d{1,2}\-\d{1,2}$', aim_date):
-    next = datetime.strptime(aim_date, "%Y-%m-%d")
-    next = next.replace(nowtime.year)
-  else:
-    print('日期格式不符合要求')
+  # # 为了经常填错日期的同学们
+  # if re.match(r'^\d{1,2}\-\d{1,2}$', aim_date):
+  #   next = datetime.strptime(str(date.today().year) + "-" + aim_date, "%Y-%m-%d")
+  # elif re.match(r'^\d{2,4}\-\d{1,2}\-\d{1,2}$', aim_date):
+  #   next = datetime.strptime(aim_date, "%Y-%m-%d")
+  #   next = next.replace(nowtime.year)
+  # else:
+  #   print('日期格式不符合要求')
 
-  if(next.strftime("%Y-%m-%d")==nowtime.strftime("%Y-%m-%d")):
-    return "亲爱的%s生日快乐 Happy birthday!" % (name)
-  if next < nowtime:
-    next = next.replace(year=next.year + 1)
-  return "距离%s的生日还有：%d天" % (name, (next - today).days) 
+  # if(next.strftime("%Y-%m-%d")==nowtime.strftime("%Y-%m-%d")):
+  #   return "亲爱的%s生日快乐 Happy birthday!" % (name)
+  # if next < nowtime:
+  #   next = next.replace(year=next.year + 1)
+  # return "距离%s的生日还有：%d天" % (name, (next - today).days) 
 
 
 def get_weather(my_city):
@@ -187,7 +187,8 @@ def send_weather(access_token, weather):
                 "value": weather[3]
             },
             "love_days": {
-              "value": get_memorial_days_count(),
+              # "value": get_memorial_days_count(),
+              "value": start_date,
             },
             "today_note": {
               "value": get_daily_love()
