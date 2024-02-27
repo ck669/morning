@@ -10,7 +10,7 @@ appSecret = os.environ.get("APP_SECRET")
 # 收信人ID即 用户列表中的微信号
 openId = os.environ.get("OPEN_ID")
 # 城市
-# city = os.environ.get('CITY')
+city = os.environ.get('CITY')
 # 天气预报模板ID
 weather_template_id = os.environ.get("TEMPLATE_ID")
 
@@ -126,6 +126,7 @@ def weather_report(this_city):
     # 2. 获取天气
     weather = get_weather(this_city)
     print(f"天气信息： {weather}")
+    print(f"天气信息： {city}")
     # 3. 发送消息
     send_weather(access_token, weather)
 
