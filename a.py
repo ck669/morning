@@ -4,11 +4,24 @@ import re
 
 # 纪念日
 start_date = "2024-02-26"
+birthday = "小王 r01-21\n小李 r01-18"
 
-persons = ["小王","小李"]
-birthdays = ["r01-21","r01-18"]
+persons = []
+birthdays = []
 
 today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+
+# 处理名字和生日数组
+def split_birthday():
+    if birthday is None:
+        return None
+    arr = birthday.split('\n')
+    for m in arr:
+        objArr = m.split(' ')
+        persons.append(objArr[0])
+        birthdays.append(objArr[1])
+
+split_birthday()
 
 data = {
 
