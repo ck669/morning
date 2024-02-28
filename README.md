@@ -46,6 +46,7 @@ https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 模板内容：
 ```copy
 今天：{{date.DATA}} 
+今天：{{week_day.DATA}} 
 地区：{{city.DATA}} 
 天气：{{weather.DATA}} 
 气温：{{temp.DATA}} 

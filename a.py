@@ -22,6 +22,12 @@ def get_memorial_days_count():
     delta = today - datetime.strptime(start_date, "%Y-%m-%d")
     return delta.days
 
+# 获取当前日期为星期几
+def get_week_day():
+  week_list = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+  week_day = week_list[today.weekday()]
+  return week_day
+
 # 各种倒计时
 def get_counter_left(name,aim_date):
   if aim_date is None:
@@ -55,4 +61,4 @@ for index, aim_date in enumerate(birthdays):
     "value": get_counter_left(persons[index], aim_date),
   }
 
-print(data,get_memorial_days_count())
+print(data,get_memorial_days_count(),get_week_day())
