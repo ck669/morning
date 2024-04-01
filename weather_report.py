@@ -30,6 +30,7 @@ birthday = os.getenv('BIRTHDAY')
 # 处理名字和生日数组
 def split_birthday():
   if birthday is None:
+    print('没有设置 BIRTHDAY')
     return None
   arr = birthday.split('\n')
   for m in arr:
@@ -123,28 +124,28 @@ def get_week_day():
 
 data = {
   "date": {
-      "value": today.strftime("%Y年%m月%d日")
+    "value": today.strftime("%Y年%m月%d日")
   },
   "city": {
-      "value": weather[0]
+    "value": weather[0]
   },
   "weather": {
-      "value": weather[2]
+    "value": weather[2]
   },
   "temp": {
-      "value": weather[1]
+    "value": weather[1]
   },
   "wind_dir": {
-      "value": weather[3]
+    "value": weather[3]
   },
   "week_day": {
-      "value": get_week_day(),
+    "value": get_week_day(),
   },
   "love_days": {
-      "value": get_memorial_days_count(),
+    "value": get_memorial_days_count(),
   },
-  "today_note": {
-      "value": get_daily_love()
+  "note": {
+    "value": get_daily_love()
   }
 }
 
@@ -169,7 +170,7 @@ def get_counter_left(name,aim_date):
   return "距离%s的生日还有：%d天" % (name, (next - today).days)
 
 for index, aim_date in enumerate(birthdays):
-  key_name = "birthday_left"
+  key_name = "bday"
   if aim_date[0] == "r":
     dArr = aim_date[1:].split("-")
     dArr.insert(0,today.year)
@@ -180,7 +181,7 @@ for index, aim_date in enumerate(birthdays):
   data[key_name] = {
     "value": get_counter_left(persons[index], aim_date),
   }
-print(data)
+
 def send_weather(access_token, value):
   # touser 就是 openID
   # template_id 就是模板ID
@@ -206,6 +207,7 @@ def weather_report():
   # print(f"天气信息： {weather}")
   # 3. 发送消息
   send_weather(access_token, data)
+
 print(data)
 
 
