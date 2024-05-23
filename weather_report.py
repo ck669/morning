@@ -167,7 +167,7 @@ def get_counter_left(name,aim_date):
     return "亲爱的%s生日快乐 Happy birthday!" % (name)
   if next < today:
     next = next.replace(year=next.year + 1)
-  return "距离%s的生日还有：%d天" % (name, (next - today).days)
+  return "%s的生日还有：%d天" % (name, (next - today).days)
 
 for index, aim_date in enumerate(birthdays):
   key_name = "bday"

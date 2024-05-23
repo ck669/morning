@@ -52,8 +52,8 @@ https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 气温：{{temp.DATA}} 
 风向：{{wind_dir.DATA}} 
 纪念日: {{ love_days.DATA }}
-人员生日信息: ${{ bday_left.DATA }}
-人员2生日信息: ${{ bday_left_1.DATA }}
+人员生日信息: ${{ bday.DATA }}
+人员2生日信息: ${{ bday_1.DATA }}
 每日情话: ${{ note.DATA }}
 ```
 
