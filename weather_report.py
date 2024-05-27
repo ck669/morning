@@ -17,7 +17,8 @@ birthdays = []
 appID = os.environ.get("APP_ID")
 appSecret = os.environ.get("APP_SECRET")
 # 收信人ID即 用户列表中的微信号
-openId = os.environ.get("OPEN_ID")
+openIds = os.environ.get("OPEN_ID").split("\n")
+# user_ids = os.getenv('USER_ID', '').split("\n")
 # 城市
 city = os.environ.get('CITY')
 # 天气预报模板ID
@@ -182,7 +183,7 @@ for index, aim_date in enumerate(birthdays):
     "value": get_counter_left(persons[index], aim_date),
   }
 
-def send_weather(access_token, value):
+def send_weather(access_token, value, openId):
   # touser 就是 openID
   # template_id 就是模板ID
   # url 就是点击模板跳转的url
@@ -197,8 +198,6 @@ def send_weather(access_token, value):
   url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}'.format(access_token)
   print(requests.post(url, json.dumps(body)).text)
 
-
-
 def weather_report():
   # 1.获取access_token
   access_token = get_access_token()
@@ -206,7 +205,10 @@ def weather_report():
   # weather = get_weather(city)
   # print(f"天气信息： {weather}")
   # 3. 发送消息
-  send_weather(access_token, data)
+  print(openIds)
+  for openId in openIds:
+    print('正在发送给 %s, 数据如下：%s' % (openId, data))
+    send_weather(access_token, data, openId)
 
 print(data)
 
