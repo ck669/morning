@@ -35,7 +35,7 @@ https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login
 #### appID  appSecret openId template_id
 ![image](https://github.com/tech-shrimp/FreeWechatPush/assets/154193368/bdb27abd-39cb-4e77-9b89-299afabc7330)
 
-想让谁收消息，谁就用微信扫二维码，然后出现在用户列表，获取微信号（openId）
+想让谁收消息，谁就用微信扫二维码，然后出现在用户列表，获取微信号（openId）多个用户接收消息换行即可
  ![image](https://github.com/tech-shrimp/FreeWechatPush/assets/154193368/1327c6f5-5c92-4310-a10b-6f2956c1dd75)
 
 新增测试模板获得  template_id（模板ID）
