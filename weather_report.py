@@ -211,6 +211,5 @@ def weather_report():
 
 print(data)
 
-
 if __name__ == '__main__':
   weather_report()
