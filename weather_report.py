@@ -40,6 +40,7 @@ def split_birthday():
 
 split_birthday()
 
+
 def get_weather(my_city):
   if city is None:
       print('请设置城市')
