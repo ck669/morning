@@ -5,7 +5,6 @@ import re
 # 纪念日
 start_date = "2024-02-26"
 birthday = "小王 r01-21\n小李 r01-18"
-abcd =''
 
 persons = []
 birthdays = []
