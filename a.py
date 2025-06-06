@@ -9,6 +9,7 @@ birthday = "小王 r01-21\n小李 r01-18"
 persons = []
 birthdays = []
 
+
 today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
 # 处理名字和生日数组
