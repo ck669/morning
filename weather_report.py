@@ -191,7 +191,7 @@ def send_weather(access_token, value, openId):
   # template_id 就是模板ID
   # url 就是点击模板跳转的url
   # data就按这种格式写，time和text就是之前{{time.DATA}}中的那个time，value就是你要替换DATA的值
-
+  print('access_token %s, openId：%s' % (access_token, openId))
   body = {
     "touser": openId.strip(),
     "template_id": weather_template_id.strip(),
