@@ -111,12 +111,13 @@ def get_memorial_days_count():
 def get_daily_love():
   # 每日一句情话 
   # url = "https://api.lovelive.tools/api/SweetNothings/Serialization/Json" 接口无法访问
-  url = "https://whyta.cn/api/tx/saylove?key=36de5db81215"
+  # url = "https://whyta.cn/api/tx/saylove?key=36de5db81215"
+  url = "https://api.lovelive.tools/api/SweetNothings"
   r = requests.get(url)
-  all_dict = json.loads(r.text)
+  # all_dict = json.loads(r.text)
   # sentence = all_dict['returnObj'][0]
-  sentence = all_dict['result']['content']
-  daily_love = sentence
+  # sentence = all_dict['result']['content']
+  daily_love = r
   return daily_love
 
 # 获取当前日期为星期几
