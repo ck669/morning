@@ -114,6 +114,7 @@ def get_daily_love():
   # url = "https://whyta.cn/api/tx/saylove?key=36de5db81215"
   url = "https://api.lovelive.tools/api/SweetNothings"
   r = requests.get(url)
+  print(r)
   # all_dict = json.loads(r.text)
   # sentence = all_dict['returnObj'][0]
   # sentence = all_dict['result']['content']
@@ -191,7 +192,6 @@ def send_weather(access_token, value, openId):
   # template_id 就是模板ID
   # url 就是点击模板跳转的url
   # data就按这种格式写，time和text就是之前{{time.DATA}}中的那个time，value就是你要替换DATA的值
-  print('access_token %s, openId：%s' % (access_token, openId))
   body = {
     "touser": openId.strip(),
     "template_id": weather_template_id.strip(),
