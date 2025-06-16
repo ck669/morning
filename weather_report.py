@@ -114,7 +114,7 @@ def get_daily_love():
   # url = "https://whyta.cn/api/tx/saylove?key=36de5db81215"
   url = "https://api.lovelive.tools/api/SweetNothings"
   r = requests.get(url)
-  print(json.loads(r))
+  print(r.content.decode("utf-8"))
   # all_dict = json.loads(r.text)
   # sentence = all_dict['returnObj'][0]
   # sentence = all_dict['result']['content']
