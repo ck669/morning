@@ -109,7 +109,7 @@ def get_memorial_days_count():
     delta = today - datetime.strptime(start_date, "%Y-%m-%d")
     if today == currtent_days:
       ys = delta.days // 365
-      return "%s天 宝贝，%d周年纪念日快乐!" % (delta.days, ys)
+      return "%s天 宝贝，%d周年纪念日快乐！" % (delta.days, ys)
     else:
       return "%s天" % (delta.days)
 
