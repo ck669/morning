@@ -102,11 +102,16 @@ def get_access_token():
 
 # 纪念日正数
 def get_memorial_days_count():
-  if start_date is None:
-    print('没有设置 START_DATE')
-    return 0
-  delta = today - datetime.strptime(start_date, "%Y-%m-%d")
-  return delta.days
+    if start_date is None:
+      print('没有设置 START_DATE')
+      return 0
+    currtent_days  = datetime.strptime(start_date, "%Y-%m-%d").replace(year=datetime.now().year)
+    delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+    if today == currtent_days:
+      ys = delta.days // 365
+      return "%s天 宝贝，%d周年纪念日快乐!" % (delta.days, ys)
+    else:
+      return "%s天" % (delta.days)
 
 def get_daily_love():
   # 每日一句情话 

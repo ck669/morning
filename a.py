@@ -3,8 +3,8 @@ from zhdate import ZhDate as lunar_date
 import re
 
 # 纪念日
-start_date = "2024-02-26"
-birthday = "小王 r01-21\n小李 r01-18"
+start_date = "2021-12-18"
+birthday = "小王 r10-21\n小李 r11-12"
 
 persons = []
 birthdays = []
@@ -33,8 +33,13 @@ def get_memorial_days_count():
     if start_date is None:
       print('没有设置 START_DATE')
       return 0
+    currtent_days  = datetime.strptime(start_date, "%Y-%m-%d").replace(year=datetime.now().year)
     delta = today - datetime.strptime(start_date, "%Y-%m-%d")
-    return delta.days
+    if today == currtent_days:
+      ys = delta.days // 365
+      return "%s天 宝贝，%d周年纪念日快乐!" % (delta.days, ys)
+    else:
+      return "%s天" % (delta.days)
 
 # 获取当前日期为星期几
 def get_week_day():
